@@ -29,12 +29,10 @@ export function TeamMemberCard({ member, index = 0, isNewItem = false }: TeamMem
   const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 });
   const mouseYSpring = useSpring(y, { stiffness: 500, damping: 100 });
   
-  const rotateX = prefersReducedMotion || !enable3DTransforms
-    ? useTransform(mouseYSpring, [-0.5, 0.5], [0, 0])
-    : useTransform(mouseYSpring, [-0.5, 0.5], ['7.5deg', '-7.5deg']);
-  const rotateY = prefersReducedMotion || !enable3DTransforms
-    ? useTransform(mouseXSpring, [-0.5, 0.5], [0, 0])
-    : useTransform(mouseXSpring, [-0.5, 0.5], ['-7.5deg', '7.5deg']);
+  const rotateXRange = prefersReducedMotion || !enable3DTransforms ? ['0deg', '0deg'] : ['7.5deg', '-7.5deg'];
+  const rotateYRange = prefersReducedMotion || !enable3DTransforms ? ['0deg', '0deg'] : ['-7.5deg', '7.5deg'];
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], rotateXRange);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], rotateYRange);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current || prefersReducedMotion) return;

@@ -28,7 +28,7 @@ export default async function TeamDirectoryPage({
 }) {
   return (
     <ErrorBoundary>
-      <div className="h-[calc(100vh-var(--navbar-height))]">
+      <div className="h-[calc(92vh-var(--navbar-height))]">
         <TeamDirectoryClient />
       </div>
     </ErrorBoundary>

@@ -60,7 +60,7 @@ function LoadMoreButton({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: position === 'top' ? -20 : 20 }}
       transition={getMotionScaleTransition('small', false, 'primary')}
-      className={`flex justify-center ${position === 'top' ? 'pb-0' : 'pt-0'}`}
+      className={`flex justify-center ${position === 'top' ? 'pb-6' : 'pt-6'}`}
     >
       <motion.div {...buttonLoading}>
         <Button
@@ -207,7 +207,7 @@ export function TeamGrid({ scrollContainerRef }: TeamGridProps) {
 
   return (
     <div 
-      className="flex flex-col h-full min-h-0 px-4 md:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 overflow-y-auto pb-[max(env(safe-area-inset-bottom),1rem)]"
+      className="flex flex-col h-full min-h-0 px-4 md:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 overflow-y-auto"
       style={availableHeight ? { height: availableHeight } : undefined}
       data-lenis-prevent
     >

@@ -1,0 +1,39 @@
+{
+  "teamMembers": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "Admin",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/png?seed=1"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "role": "Agent",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/png?seed=2"
+    },
+    {
+      "id": "3",
+      "name": "Bob Wilson",
+      "email": "bob@example.com",
+      "role": "Creator",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/png?seed=3"
+    },
+    {
+      "id": "4",
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "role": "Admin",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/png?seed=4"
+    },
+    {
+      "id": "5",
+      "name": "Charlie Brown",
+      "email": "charlie@example.com",
+      "role": "Agent",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/png?seed=5"
+    }
+  ]
+}

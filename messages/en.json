@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "brand": "Team Directory",
+    "teamDirectory": "Team Directory",
+    "home": "Home",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language"
+  },
+  "home": {
+    "metadata": {
+      "title": "Home - Team Directory",
+      "description": "Welcome to the Team Directory application"
+    },
+    "hero": {
+      "title": "Welcome to Team Directory",
+      "description": "Browse, search, and manage your team members with ease. Find the right person quickly with our powerful filtering and search capabilities.",
+      "cta": "View Team Directory"
+    },
+    "features": {
+      "search": {
+        "title": "Advanced Search",
+        "description": "Search team members by name or email with real-time filtering and debounced input for optimal performance."
+      },
+      "filter": {
+        "title": "Smart Filtering",
+        "description": "Filter team members by role (Admin, Agent, Creator) and combine multiple filters for precise results."
+      },
+      "views": {
+        "title": "Multiple Views",
+        "description": "Switch between table and grid views to see your team members in the format that works best for you."
+      }
+    },
+    "quickAccess": "Go to Team Directory"
+  },
+  "teamDirectory": {
+    "metadata": {
+      "title": "Team Directory",
+      "description": "Browse and search team members"
+    },
+    "filters": {
+      "searchLabel": "Search team members",
+      "searchPlaceholder": "Search by name or email...",
+      "searchDescription": "Start typing to find team members instantly",
+      "clearSearch": "Clear search",
+      "roleFilter": "Filter by role",
+      "allRoles": "All Roles",
+      "clearFilters": "Clear all filters",
+      "advanced": "Advanced",
+      "advancedFilters": "Advanced Filters",
+      "closeAdvanced": "Close advanced filters",
+      "apply": "Apply",
+      "activeFilters": "Active Filters",
+      "noResultsHint": "Try adjusting your search terms or filters"
+    },
+    "emptyState": {
+      "title": "No team members found",
+      "filteredMessage": "We couldn't find any matches. Try adjusting your search or filters to see more results.",
+      "noDataMessage": "Your team directory is being set up. Check back soon!"
+    },
+    "errors": {
+      "network": {
+        "title": "Connection Error",
+        "message": "Oops! Something went sideways. We couldn't reach our servers. Please check your connection and try again."
+      },
+      "server": {
+        "title": "Server Error",
+        "message": "We're experiencing some technical difficulties. Our team has been notified. Please try again in a moment."
+      },
+      "unknown": {
+        "title": "Something went wrong",
+        "message": "An unexpected hiccup occurred. Don't worry, we're on it! Please try again."
+      },
+      "invalidParams": {
+        "title": "Invalid URL parameters",
+        "message": "Some URL parameters were invalid and have been removed."
+      },
+      "timeout": {
+        "title": "Request taking longer than expected",
+        "message": "The request is taking longer than usual. Please check your connection or try again."
+      },
+      "retry": "Try Again"
+    },
+    "loadMore": "Load More",
+    "loadMoreCount": "Load {count} More",
+    "loading": "We're finding your team...",
+    "loadingComplete": "Perfect! Here's what we found.",
+    "viewToggle": {
+      "table": "Table",
+      "grid": "Grid",
+      "switchToTable": "Switch to table view",
+      "switchToGrid": "Switch to grid view"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "total": "total",
+      "previousPage": "Previous page",
+      "nextPage": "Next page"
+    },
+    "table": {
+      "name": "Name",
+      "role": "Role",
+      "email": "Email",
+      "noResults": "No results.",
+      "sortHint": "Click column headers to sort",
+      "keyboardHint": "Use arrow keys to navigate"
+    }
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Our team has been notified.",
+    "reload": "Reload Page",
+    "reportError": "Report Error"
+  }
+}
+

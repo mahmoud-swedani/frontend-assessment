@@ -1,223 +1,144 @@
-# Frontend Developer Technical Assessment
+# ✅ Frontend Developer Technical Assessment Submission: Team Directory Application
 
-## Overview
+## 🌟 Overview
 
-Your task is to build a **"Team Directory"** feature that displays a **paginated, filterable list of team members**.
+This repository contains my completed solution for the Frontend Developer Technical Assessment, focusing on the **Team Directory** feature. The application is built using modern **Next.js, TypeScript, Zustand, and TanStack Table**, demonstrating the ability to deliver a production-quality, paginated, filterable, and fully internationalized experience.
 
-- **Estimated Time:** 6–10 hours (spread over 2–3 days)  
-- **Difficulty:** Intermediate  
-- **Goal:** Evaluate your ability to implement a production-quality feature following best practices in **React, Next.js, TypeScript, GraphQL, Zustand, and TanStack Table**.
+## 🌐 Live Demo
 
----
+Explore the live application in action:
 
-## Design Guidelines
+**👉 [Team Directory Live Demo](https://team-directory-delta.vercel.app/)**
 
-> **Note:** There is no Figma or design mockup provided.  
-> **You** are responsible for implementing the **look and feel** of the feature.  
-> Focus on creating a **clean, responsive, and user-friendly UI** using your judgment, while following the functional requirements outlined in this assessment.
+## 📖 Documentation
 
----
+**Quick Links:**
 
-## Repository Setup
-
-1. **Fork this repository** to your own GitHub account.  
-2. Implement the assessment in your fork.  
-3. Ensure the project is **fully runnable** with either `npm` or `yarn`.  
-4. Deliver a **GitHub repository** containing your completed work, including:
-   - All implemented code
-   - Updated README if necessary
-   - Clear instructions to run the project  
-
-> The deliverable should be a **URL of your forked repository** that can be cloned and run locally without additional setup.
-
-**Do NOT clone this repository directly for submission.**  
+- **[📘 Documentation Guide](./docs/README.md)** - For full details, see the documentation README
 
 ---
 
-## 1. Page & Routing (Next.js App Router)
+## 🚀 Getting Started
 
-- Create a new route at `/team-directory`  
-- Implement a **responsive layout** (mobile-first)  
-- Add **SEO metadata** using `next-intl`  
+### Prerequisites
 
----
+- Node.js 18+ (LTS recommended)
+- npm or yarn
 
-## 2. Data Layer (GraphQL + Apollo Client)
+### Installation
 
-- Define a GraphQL query: `GET_TEAM_MEMBERS`  
-  - Supports **pagination** (`page`, `limit`)  
-  - Supports **filtering** by:
-    - Role
-    - Name search  
-- Use Apollo Client with **TypeScript types**  
+This project is fully runnable after cloning the forked repository.
 
-> **Note:** You can mock the data if a backend is unavailable.
+```bash
+# 1. Clone the repository (using your fork URL)
+git clone <repository-url>
 
----
+# 2. Navigate to the project directory
+cd <project-name>
 
-## 3. State Management (Zustand)
-
-Create a store that manages:
-
-- Team members list  
-- Active filters (`role`, `searchTerm`)  
-- Pagination state (`currentPage`, `totalPages`)  
-
-Include actions for:
-
-- Updating filters  
-- Updating pagination  
-- Clearing filters
-
----
-
-## 4. UI Components
-
-### TeamMemberCard
-
-- Shows: avatar, name, role, email  
-- Includes a **hover state** with subtle animation  
-
-### TeamFilters
-
-- Search input (debounced 300 ms delay)  
-- Role dropdown  
-- “Clear filters” button  
-
-### TeamTable (TanStack Table)
-
-- Display team members in a **data table** using **TanStack Table v8**  
-- Columns: **Avatar, Name, Role, Email**  
-- Features:
-  - **Sorting** by Name or Role  
-  - **Pagination**  
-  - **Filtering** by search term and role  
-  - **Custom cell rendering** (e.g., avatar image, role badge)  
-- Must remain **responsive**:
-  - Horizontal scroll on small screens
-
-### TeamGrid (Optional)
-
-- Display team members as cards (grid layout)  
-- Responsive:  
-  - 1 column (mobile)  
-  - 2 columns (tablet)  
-  - 3 columns (desktop)  
-- Shows loading skeletons while fetching  
-- Empty state when no results  
-
----
-
-## 5. Internationalization (next-intl)
-
-Add translations to `en.json` and `ar.json`:
-
-```json
-{
-  "teamDirectory": {
-    "metadata": {
-      "title": "Team Directory",
-      "description": "Browse team members"
-    },
-    "filters": {
-      "searchPlaceholder": "Search by name...",
-      "roleFilter": "Filter by role",
-      "clearFilters": "Clear all"
-    },
-    "emptyState": "No team members found",
-    "loadMore": "Load more"
-  }
-}
-```
-
-## 6. Features to Implement
-
-| Feature           | Description                               |
-| ----------------- | ----------------------------------------- |
-| Debounced search  | 300 ms delay before triggering filter     |
-| Filter by role    | Admin, Agent, Creator                     |
-| Pagination        | “Load More” button or table pagination    |
-| Sorting           | Allow sorting by Name or Role             |
-| Loading states    | Skeleton components while data is loading |
-| Empty state       | Display when no results are found         |
-| Responsive design | Mobile-first layout                       |
-| TypeScript        | Strict typing throughout                  |
-| Error handling    | Show user-friendly messages               |
-
-## 7. Technical Constraints
-
-- Use a component library (Radix / shadcn/ui) for UI elements
-- Follow best practices in React, TypeScript, and Tailwind
-- Implement proper loading states
-- Use Tailwind CSS with RTL support
-- Use TanStack Table v8 for tabular data display
-
-### Mock Data
-
-If no backend is available, create a mock hook:
-
-export const useTeamMembers = (filters) => {
-  // Return mock data matching GraphQL structure
-  // Simulate loading and error states
-};
-
-## 8. Deliverables
-
-- Forked/Cloned GitHub repository with all implemented work
-- Working feature accessible at /team-directory
-- Clean, well-typed TypeScript code
-- Responsive UI (mobile & desktop)
-- Proper i18n support (EN / AR)
-
-### README describing:
-
-- Approach
-- Design decisions
-- Any tradeoffs or known limitations
-
-## 9. Evaluation Criteria
-
-| Category       | Weight | Description                                                |
-| -------------- | ------ | ---------------------------------------------------------- |
-| Code Quality   | 40%    | TypeScript usage, component structure, reusability         |
-| UI/UX          | 30%    | Responsive design, loading states, accessibility           |
-| Best Practices | 20%    | State management, performance (debouncing), error handling |
-| Integration    | 10%    | Clean architecture, proper use of utilities                |
-
-10. Bonus Points (Optional)
-
-- Unit tests for utility functions
-- Keyboard navigation (accessibility)
-- Transitions / animations using Framer Motion
-- URL query params for filter persistence
-- Ability to switch between grid and table views
-
-## 11. Getting Started
-
-```
-# Using npm
+# 3. Install dependencies
 npm install
-npm run dev
-
-# Or using yarn
+# or
 yarn install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4000/graphql
+NEXT_PUBLIC_USE_MOCK_API=true
+```
+
+### Running the Application
+
+The application defaults to the mock API for immediate use.
+
+```bash
+# Start development server
+npm run dev
+# or
 yarn dev
 
-# Open http://localhost:3000 in your browser
+# Run type checking
+npm run type-check
+# or
+yarn type-check
+
+# Run tests
+npm run test
+# or
+yarn test
+
+# Run E2E tests
+npm run test:e2e
+# or
+yarn test:e2e
 ```
 
-## 12. Submission Instructions
+Visit:
+- English: `http://localhost:3000/en/team-directory`
+- Arabic: `http://localhost:3000/ar/team-directory`
 
-- Push your completed work to your forked repository.
-- Ensure the repository contains:
-  - All code necessary to run the project locally
-  - Updated README with any notes about your implementation
-- Submit the GitHub repository link for evaluation.
+---
 
-## Good Luck!
+## 💡 Technical Approach & Design Decisions
 
-We wish you the best of luck on this assessment! 🎉  
-Take your time, focus on code quality, and showcase your skills with confidence.  
-Remember, clarity, maintainability, and thoughtful design decisions matter just as much as functionality.  
+### 1. Architecture & Integration
+- **Next.js App Router** for modern routing, server components, and SEO metadata via `next-intl`.
+- **Mocked Data Layer** with `useTeamMembers` emulating GraphQL/Apollo Client, covering filtering, sorting, pagination, and error states.
+- **Zustand Store** manages `activeFilters`, `paginationState`, and list data for decoupled state management.
+- **TanStack Table v8** powers the tabular experience with custom cells (avatar, role badge), sorting, and pagination controls.
 
-Happy coding! 🚀
+### 2. UI/UX Decisions
+- **shadcn/ui (Radix)** components provide WCAG 2.1 AA accessible primitives styled with Tailwind.
+- **Responsive/mobile-first** layout; the table supports horizontal scroll on narrow screens to preserve data density.
+- **300 ms debounced search** improves perceived performance and avoids unnecessary rerenders.
+- **Full i18n support** for English (LTR) and Arabic (RTL) via `next-intl` and Tailwind RTL configuration.
+
+### 3. Tradeoffs & Known Limits
+- **Client-side mock logic** handles filtering/sorting/pagination until a real GraphQL endpoint is available; implementation is isolated for easy replacement.
+- **Testing focus** prioritized core utilities and hooks; not every UI surface has exhaustive unit coverage yet.
+
+---
+
+## 🏆 Advanced / Bonus Features
+
+- **Dual View Modes:** Table view plus optional responsive card grid.
+- **URL Query Params:** Persist filters and pagination for shareable links.
+
+---
+
+## 🔒 Tech Stack Highlights
+
+| Category            | Technology                    |
+|---------------------|--------------------------------|
+| Framework           | Next.js (App Router)          |
+| State Management    | Zustand                       |
+| Table Library       | TanStack Table v8             |
+| UI Components       | Radix UI / shadcn/ui          |
+| Styling             | Tailwind CSS with RTL support |
+| Internationalization| next-intl                     |
+
+---
+
+## 📚 Additional Resources
+
+- **[Demo Guide](./docs/DEMO.md)** - Complete user guide and feature walkthrough
+- **[Technical Documentation](./docs/README.md)** - Architecture, testing, deployment, and best practices
+- **[Project Overview](./docs/01_PROJECT_OVERVIEW.md)** - Business context, user roles, and setup
+- **[Frontend Architecture](./docs/02_ARCHITECTURE_FE.md)** - Code structure and patterns
+- **[API & Data Layer](./docs/03_API_AND_DATA.md)** - GraphQL schema and data fetching
+- **[Testing & QA](./docs/04_TESTING_QA.md)** - Testing strategy and results
+- **[Best Practices](./docs/05_CONVENTIONS.md)** - Code conventions and contribution guide
+- **[Deployment & Operations](./docs/06_DEPLOYMENT_OPS.md)** - CI/CD and production setup
+
+---
+
+## 📄 Submission Instructions
+
+1. Push all code and this updated `README.md` to your fork.
+2. Submit the GitHub repository link for evaluation.
+
+Good Luck! 🚀

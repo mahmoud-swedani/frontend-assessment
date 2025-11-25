@@ -14,7 +14,7 @@ Explore the live application in action:
 
 **Quick Links:**
 
-- **[📘 Documentation Guide](./docs/README.md)** - For full details, see the documentation README
+- **[📘 Docs Guide](./docs/README.md)** - For full details, see the documentation README
 
 ---
 

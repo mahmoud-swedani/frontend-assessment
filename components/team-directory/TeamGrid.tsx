@@ -207,7 +207,7 @@ export function TeamGrid({ scrollContainerRef }: TeamGridProps) {
 
   return (
     <div 
-      className="flex flex-col h-full min-h-0 px-4 md:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 overflow-y-auto"
+      className="flex flex-col h-full min-h-0 px-4 md:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 overflow-y-auto pb-[max(env(safe-area-inset-bottom),1rem)]"
       style={availableHeight ? { height: availableHeight } : undefined}
       data-lenis-prevent
     >

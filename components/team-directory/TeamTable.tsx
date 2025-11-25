@@ -24,9 +24,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { LoadingSkeleton } from './LoadingSkeleton';
 import { TeamTableMobileCard } from './TeamTableMobileCard';
+import { Loader2 } from 'lucide-react';
 import { useTeamDirectoryStore } from '@/stores/teamDirectoryStore';
 import { ROLE_COLORS } from '@/lib/constants';
-import { staggerItem, fadeIn, hoverScale, SPRING, rowAppear, staggerTable, getMotionScaleTransition, getEasing } from '@/lib/animations';
+import { staggerItem, fadeIn, hoverScale, SPRING, rowAppear, staggerTable, getMotionScaleTransition, getEasing, buttonLoading, loadingSpinner } from '@/lib/animations';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useFadeInOnScroll } from '@/hooks/useScrollAnimation';
@@ -306,7 +307,7 @@ export function TeamTable({ scrollContainerRef }: TeamTableProps) {
         initial="hidden"
         animate="visible"
         variants={fadeIn}
-        className="flex flex-col h-full min-h-0 px-1"
+        className="flex flex-col h-full min-h-0 px-1 pb-[max(env(safe-area-inset-bottom),1rem)]"
         style={mobileAvailableHeight ? { height: mobileAvailableHeight } : undefined}
         role="table"
         aria-label={t('table.name')}

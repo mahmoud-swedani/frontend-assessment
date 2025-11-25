@@ -8,7 +8,7 @@ This repository contains my completed solution for the Frontend Developer Techni
 
 Explore the live application in action:
 
-**👉 [Team Directory Live Demo](https://team-directory-delta.vercel.app/)**
+**👉 [Team Directory Live Demo](https://frontend-assessment-lime.vercel.app/)**
 
 ## 📖 Documentation
 

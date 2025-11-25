@@ -2,7 +2,7 @@
 
 ## 🌐 Live Application
 
-**Live Demo URL**: [https://team-directory-delta.vercel.app/](https://team-directory-delta.vercel.app/)
+**Live Demo URL**: [https://frontend-assessment-lime.vercel.app/](https://frontend-assessment-lime.vercel.app/)
 
 The Team Directory application is deployed and accessible via the link above. This comprehensive guide will help you understand the application's features, architecture, and how to use it effectively.
 
@@ -121,7 +121,7 @@ The Team Directory is a modern, production-ready web application designed to hel
 ### Getting Started
 
 1. **Access the Application**
-   - Visit [https://team-directory-delta.vercel.app/](https://team-directory-delta.vercel.app/)
+   - Visit [https://frontend-assessment-lime.vercel.app/](https://frontend-assessment-lime.vercel.app/)
    - You'll land on the home page with feature highlights
 
 2. **Navigate to Team Directory**
@@ -341,5 +341,5 @@ For questions, issues, or feedback about the live demo:
 
 **Last Updated**: 2024-12-19
 
-**Live Demo**: [https://team-directory-delta.vercel.app/](https://team-directory-delta.vercel.app/)
+**Live Demo**: [https://frontend-assessment-lime.vercel.app/](https://frontend-assessment-lime.vercel.app/)
 

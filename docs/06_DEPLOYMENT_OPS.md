@@ -36,7 +36,7 @@ The deployment pipeline is configured via GitHub Actions (`.github/workflows/ci.
   - Triggered by: Push to `main` or `master` branch
   - Platform: Vercel (automatic via GitHub integration)
   - Environment: Production
-  - URL: `https://team-directory-delta.vercel.app/`
+  - URL: `https://frontend-assessment-lime.vercel.app/`
 
 - **Preview Deployment**:
   - Triggered by: Pull requests to `main`, `master`, or `develop`

@@ -298,7 +298,7 @@ export function TeamDirectoryClient() {
       </motion.header>
 
       {/* Main Content - Flex container */}
-      <div className="flex-1 flex flex-col md:flex-row gap-4 overflow-hidden px-4 sm:px-6 lg:px-8 py-4 min-h-0 relative">
+      <div className="flex-1 flex flex-col md:flex-row gap-4 overflow-hidden px-4 sm:px-6 lg:px-8 py-4 sm:py-20 min-h-0 relative">
         {/* Background patterns and gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Dot pattern overlay */}

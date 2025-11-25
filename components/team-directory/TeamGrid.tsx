@@ -60,7 +60,7 @@ function LoadMoreButton({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: position === 'top' ? -20 : 20 }}
       transition={getMotionScaleTransition('small', false, 'primary')}
-      className={`flex justify-center ${position === 'top' ? 'pb-6' : 'pt-6'}`}
+      className={`flex justify-center ${position === 'top' ? 'pb-0' : 'pt-0'}`}
     >
       <motion.div {...buttonLoading}>
         <Button

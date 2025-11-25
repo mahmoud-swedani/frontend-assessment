@@ -14,8 +14,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-rose-lavender text-primary-foreground hover:shadow-rose hover:scale-[1.02] active:scale-[0.98] transition-all duration-300",
-        holographic: "holographic relative overflow-hidden text-primary-foreground hover:holographic-glow hover:scale-[1.02] active:scale-[0.98] transition-all duration-300",
+        default: "bg-gradient-rose-lavender text-primary-foreground hover:shadow-rose transition-all duration-300",
+        holographic: "holographic relative overflow-hidden text-primary-foreground hover:holographic-glow transition-all duration-300",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:

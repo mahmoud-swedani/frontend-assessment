@@ -23,7 +23,7 @@ export function ViewToggle() {
     // Return a placeholder with the same structure to prevent layout shift
     return (
       <div
-        className="inline-flex gap-1 border-2 border-primary/10 rounded-xl p-1.5 bg-muted/30"
+        className="inline-flex gap-0.5 sm:gap-1 border-2 border-primary/10 rounded-lg sm:rounded-xl p-1 sm:p-1.5 bg-muted/30"
         role="tablist"
         aria-label="View mode selector"
       >
@@ -32,30 +32,30 @@ export function ViewToggle() {
           aria-selected={true}
           aria-controls="team-directory-content"
           className={cn(
-            'inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all',
+            'inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
             'disabled:pointer-events-none disabled:opacity-50',
             'bg-background text-foreground shadow-sm'
           )}
           disabled
         >
-          <Table2 className="h-4 w-4" aria-hidden="true" />
-          <span>{t('viewToggle.table')}</span>
+          <Table2 className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
+          <span className="hidden sm:inline">{t('viewToggle.table')}</span>
         </button>
         <button
           role="tab"
           aria-selected={false}
           aria-controls="team-directory-content"
           className={cn(
-            'inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all',
+            'inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
             'disabled:pointer-events-none disabled:opacity-50',
             'text-muted-foreground hover:text-foreground hover:bg-background/50'
           )}
           disabled
         >
-          <Grid3x3 className="h-4 w-4" aria-hidden="true" />
-          <span>{t('viewToggle.grid')}</span>
+          <Grid3x3 className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
+          <span className="hidden sm:inline">{t('viewToggle.grid')}</span>
         </button>
       </div>
     );
@@ -63,18 +63,18 @@ export function ViewToggle() {
 
   return (
     <div
-      className="relative inline-flex gap-1 border-2 border-primary/10 rounded-xl p-1.5 bg-muted/30 shadow-soft"
+      className="relative inline-flex gap-0.5 sm:gap-1 border-2 border-primary/10 rounded-lg sm:rounded-xl p-1 sm:p-1.5 bg-muted/30 shadow-soft"
       role="tablist"
       aria-label="View mode selector"
     >
       {/* Sliding background indicator with rose gradient */}
       <motion.div
         layoutId="view-toggle-indicator"
-        className="absolute inset-y-1.5 rounded-lg bg-gradient-rose-lavender shadow-rose"
+        className="absolute inset-y-1 sm:inset-y-1.5 rounded-md sm:rounded-lg bg-gradient-rose-lavender shadow-rose"
         initial={false}
         transition={SPRING.elegant}
         style={{
-          insetInlineStart: viewMode === 'table' ? '6px' : 'calc(50% + 2px)',
+          insetInlineStart: viewMode === 'table' ? '4px' : 'calc(50% + 2px)',
           width: 'calc(50% - 4px)',
         }}
       />
@@ -88,7 +88,7 @@ export function ViewToggle() {
         whileTap={{ scale: 0.98 }}
         transition={SPRING.gentle}
         className={cn(
-          'relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300',
+          'relative z-10 inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all duration-300',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
           'disabled:pointer-events-none disabled:opacity-50',
           viewMode === 'table'
@@ -101,9 +101,9 @@ export function ViewToggle() {
           animate={viewMode === 'table' ? { rotate: [0, -10, 10, 0], scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6, ease: getEasing('gentle') }}
         >
-          <Table2 className="h-4 w-4" aria-hidden="true" />
+          <Table2 className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
         </motion.div>
-        <span>{t('viewToggle.table')}</span>
+        <span className="hidden sm:inline">{t('viewToggle.table')}</span>
       </motion.button>
       
       <motion.button
@@ -115,7 +115,7 @@ export function ViewToggle() {
         whileTap={{ scale: 0.98 }}
         transition={SPRING.gentle}
         className={cn(
-          'relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300',
+          'relative z-10 inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all duration-300',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
           'disabled:pointer-events-none disabled:opacity-50',
           viewMode === 'grid'
@@ -128,9 +128,9 @@ export function ViewToggle() {
           animate={viewMode === 'grid' ? { rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6, ease: getEasing('gentle') }}
         >
-          <Grid3x3 className="h-4 w-4" aria-hidden="true" />
+          <Grid3x3 className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
         </motion.div>
-        <span>{t('viewToggle.grid')}</span>
+        <span className="hidden sm:inline">{t('viewToggle.grid')}</span>
       </motion.button>
     </div>
   );

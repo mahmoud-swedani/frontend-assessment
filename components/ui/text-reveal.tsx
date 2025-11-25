@@ -8,24 +8,29 @@ interface TextRevealProps {
   className?: string;
   delay?: number;
   duration?: number;
+  animateOnMount?: boolean;
 }
 
-export function TextReveal({ text, className, delay = 0, duration = 0.5 }: TextRevealProps) {
+export function TextReveal({ text, className, delay = 0, duration = 0.5, animateOnMount = false }: TextRevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: animateOnMount ? '0px' : '-100px' });
   const prefersReducedMotion = useReducedMotion();
+
+  // Extract gradient class if present and apply to each span
+  const gradientClass = className?.match(/gradient-text-\w+/)?.[0];
+  const baseClassName = className?.replace(/gradient-text-\w+/g, '').replace(/\s+/g, ' ').trim();
 
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={baseClassName}
       initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      animate={(animateOnMount || isInView) ? 'visible' : 'hidden'}
     >
       {text.split(' ').map((word, i) => (
         <motion.span
           key={i}
-          className="inline-block me-2"
+          className={`inline-block me-2 ${gradientClass || ''}`}
           variants={prefersReducedMotion ? {} : {
             hidden: { 
               opacity: 0, 

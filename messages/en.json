@@ -49,6 +49,7 @@
       "clearFilters": "Clear all filters",
       "advanced": "Advanced",
       "advancedFilters": "Advanced Filters",
+      "mobilePrompt": "Filters",
       "closeAdvanced": "Close advanced filters",
       "apply": "Apply",
       "activeFilters": "Active Filters",

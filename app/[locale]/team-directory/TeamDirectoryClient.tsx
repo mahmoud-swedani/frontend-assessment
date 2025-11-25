@@ -11,11 +11,15 @@ import { EmptyState } from '@/components/team-directory/EmptyState';
 import { ErrorState } from '@/components/team-directory/ErrorState';
 import { ViewToggle } from '@/components/team-directory/ViewToggle';
 import { useTeamDirectoryStore } from '@/stores/teamDirectoryStore';
+import { Filter } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useTeamMembersData } from '@/hooks/useTeamMembersData';
-import { pageTransition, staggerContainer, staggerItem, slideUp, viewSwitch, viewMorph, getMotionScaleTransition } from '@/lib/animations';
+import { pageTransition, staggerContainer, staggerItem, slideUp, viewSwitch, viewMorph, getMotionScaleTransition, SPRING } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { toast } from '@/lib/toast-store';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration';
+import { AdvancedFiltersDrawer } from '@/components/team-directory/AdvancedFiltersDrawer';
 import type { TeamMemberRole } from '@/types/teamDirectory';
 
 export function TeamDirectoryClient() {
@@ -29,10 +33,15 @@ export function TeamDirectoryClient() {
   const error = useTeamDirectoryStore((state) => state.error);
   const searchTerm = useTeamDirectoryStore((state) => state.searchTerm);
   const selectedRole = useTeamDirectoryStore((state) => state.selectedRole);
+  const sortBy = useTeamDirectoryStore((state) => state.sortBy);
   const currentPage = useTeamDirectoryStore((state) => state.currentPage);
   const setSearchTerm = useTeamDirectoryStore((state) => state.setSearchTerm);
   const setSelectedRole = useTeamDirectoryStore((state) => state.setSelectedRole);
   const setCurrentPage = useTeamDirectoryStore((state) => state.setCurrentPage);
+  
+  const [showAdvancedDrawer, setShowAdvancedDrawer] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const filterCount = (searchTerm ? 1 : 0) + (selectedRole ? 1 : 0) + (sortBy ? 1 : 0);
 
   // Scroll container ref for managing scroll position
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -220,7 +229,7 @@ export function TeamDirectoryClient() {
       {/* Header - Fixed */}
       <motion.header
         variants={staggerItem}
-        className="flex-shrink-0 px-4 sm:px-6 lg:px-8 pt-6 pb-4 border-b border-primary/10 bg-background/95 backdrop-blur-sm z-10 relative overflow-hidden"
+        className="flex-shrink-0 px-4 sm:px-6 lg:px-8 pt-3 pb-3 sm:pt-6 sm:pb-4 border-b border-primary/10 bg-background/95 backdrop-blur-sm z-10 relative overflow-hidden"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Parallax background layer */}
@@ -234,17 +243,55 @@ export function TeamDirectoryClient() {
         {/* Gradient border with shimmer */}
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-50 z-10" />
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary/20 via-secondary/30 to-primary/20 animate-pulse z-10" style={{ animation: 'shimmer 3s ease-in-out infinite' }} />
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <motion.div variants={slideUp}>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight gradient-text-rose mb-2">
+        <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
+          <motion.div variants={slideUp} className="flex-1 min-w-0">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight gradient-text-rose mb-0 sm:mb-2">
               {t('metadata.title')}
             </h1>
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">{t('metadata.description')}</p>
+            <p className="hidden sm:block text-muted-foreground text-base sm:text-lg leading-relaxed">{t('metadata.description')}</p>
           </motion.div>
           <motion.div
             variants={slideUp}
             transition={{ delay: 0.1 }}
+            className="flex-shrink-0 flex items-center gap-2"
           >
+            {/* Mobile Filter Button */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={prefersReducedMotion ? { duration: 0 } : SPRING.gentle}
+            >
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setShowAdvancedDrawer(true)}
+                className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full border-primary/30 shadow-soft md:hidden"
+                aria-label={t('filters.advancedFilters')}
+                aria-haspopup="dialog"
+              >
+                <motion.div
+                  animate={filterCount > 0 ? { rotate: [0, -8, 8, 0] } : {}}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: [0.4, 0, 0.2, 1], repeat: filterCount > 0 ? Infinity : 0, repeatDelay: 3 }}
+                  whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Filter className="h-4 w-4 sm:h-4 sm:w-4" aria-hidden="true" />
+                </motion.div>
+                {filterCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : getMotionScaleTransition('small', true)}
+                    className="absolute -top-1 -end-1 flex items-center justify-center min-w-[18px] h-[18px] sm:min-w-[20px] sm:h-5 rounded-full px-1 sm:px-1.5 text-[10px] sm:text-xs font-semibold leading-none text-primary-foreground shadow-md z-10"
+                    style={{
+                      background: 'radial-gradient(ellipse at center, oklch(0.7 0.12 15) 0%, oklch(0.7 0.12 15) 40%, transparent 70%)',
+                    }}
+                  >
+                    {filterCount}
+                  </motion.span>
+                )}
+              </Button>
+            </motion.div>
             <ViewToggle />
           </motion.div>
         </div>
@@ -284,7 +331,10 @@ export function TeamDirectoryClient() {
           data-lenis-prevent // Prevent Lenis from affecting this nested scroll container
           aria-label={t('filters.searchLabel')}
         >
-          <TeamFilters />
+          <TeamFilters 
+            showAdvancedDrawer={showAdvancedDrawer}
+            setShowAdvancedDrawer={setShowAdvancedDrawer}
+          />
         </motion.aside>
 
         {/* Table/Grid - Direct content without scroll wrapper */}
@@ -327,6 +377,12 @@ export function TeamDirectoryClient() {
           </AnimatePresence>
         </motion.main>
       </div>
+
+      {/* Advanced Filter Drawer */}
+      <AdvancedFiltersDrawer
+        isOpen={showAdvancedDrawer}
+        onClose={() => setShowAdvancedDrawer(false)}
+      />
     </motion.div>
   );
 }

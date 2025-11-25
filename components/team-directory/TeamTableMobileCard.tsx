@@ -35,6 +35,7 @@ export function TeamTableMobileCard({ member, index = 0 }: TeamTableMobileCardPr
               height={40}
               className="rounded-full"
               unoptimized={member.avatar.includes('dicebear.com')}
+              loading={index < 5 ? 'eager' : 'lazy'}
             />
           ) : (
             <div className="w-10 h-10 rounded-full bg-gradient-rose-lavender/10 flex items-center justify-center text-sm font-semibold text-primary shadow-soft">

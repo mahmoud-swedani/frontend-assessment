@@ -81,8 +81,11 @@ describe('TeamFilters', () => {
     customRender(<TeamFilters />);
 
     await waitFor(() => {
-      const badge = screen.getByText('3');
-      expect(badge).toBeInTheDocument();
+      // There are multiple badges (mobile and desktop), so use getAllByText
+      const badges = screen.getAllByText('3');
+      expect(badges.length).toBeGreaterThan(0);
+      // Verify at least one badge is in the document
+      expect(badges[0]).toBeInTheDocument();
     });
   });
 
@@ -90,12 +93,19 @@ describe('TeamFilters', () => {
     const user = userEvent.setup();
     customRender(<TeamFilters />);
 
+    let advancedButton: HTMLElement | undefined;
     await waitFor(() => {
-      const advancedButton = screen.getByLabelText(/advanced filters/i);
-      expect(advancedButton).toBeInTheDocument();
+      // There are multiple "Advanced Filters" buttons (mobile and desktop), so use getAllByLabelText
+      const advancedButtons = screen.getAllByLabelText(/advanced filters/i);
+      expect(advancedButtons.length).toBeGreaterThan(0);
+      advancedButton = advancedButtons[0];
+      expect(advancedButton).toBeDefined();
     });
 
-    const advancedButton = screen.getByLabelText(/advanced filters/i);
+    // Click the first one (either mobile or desktop will work)
+    if (!advancedButton) {
+      throw new Error('Advanced button not found');
+    }
     await user.click(advancedButton);
 
     // Should show drawer (this depends on AdvancedFiltersDrawer implementation)

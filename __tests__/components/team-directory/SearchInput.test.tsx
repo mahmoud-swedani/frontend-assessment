@@ -106,13 +106,16 @@ describe('SearchInput', () => {
     
     customRender(<SearchInput />);
 
-    const input = screen.getByPlaceholderText(/search by name or email/i);
-    await user.type(input, longString);
+    const input = screen.getByPlaceholderText(/search by name or email/i) as HTMLInputElement;
+    
+    // Use paste instead of type for better performance with long strings
+    await user.clear(input);
+    await user.paste(longString);
 
     await waitFor(() => {
       const state = useTeamDirectoryStore.getState();
       expect(state.searchTerm.length).toBeLessThanOrEqual(100);
-    });
+    }, { timeout: 10000 });
   });
 
   it('should sync with store when store changes externally', async () => {

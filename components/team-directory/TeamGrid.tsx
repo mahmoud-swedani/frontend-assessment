@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useRef, useEffect } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { useTeamDirectoryStore } from '@/stores/teamDirectoryStore';
@@ -30,6 +30,7 @@ function LoadMoreButton({
   pageSize: number;
 }) {
   const t = useTranslations('teamDirectory');
+  const [ripple, setRipple] = React.useState<{ x: number; y: number } | null>(null);
 
   // Calculate how many items will be loaded (min of itemsRemaining and pageSize)
   const itemsToLoad = itemsRemaining !== undefined 
@@ -40,6 +41,16 @@ function LoadMoreButton({
   const buttonText = itemsRemaining !== undefined && itemsRemaining > 0
     ? t('loadMoreCount', { count: itemsToLoad })
     : t('loadMore');
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setRipple({ x, y });
+    setTimeout(() => setRipple(null), 600);
+    onClick();
+  };
 
   return (
     <motion.div
@@ -53,7 +64,7 @@ function LoadMoreButton({
     >
       <motion.div {...buttonLoading}>
         <Button
-          onClick={onClick}
+          onClick={handleClick}
           disabled={isLoading}
           variant={isLoading ? "loading" : "default"}
           aria-label={isLoading ? t('loading') : buttonText}
@@ -72,8 +83,32 @@ function LoadMoreButton({
             </>
           ) : (
             <>
-              <span>{buttonText}</span>
+              <span className="relative z-10">{buttonText}</span>
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              {ripple && (
+                <motion.span
+                  className="absolute rounded-full bg-white/40"
+                  initial={{ 
+                    x: ripple.x, 
+                    y: ripple.y, 
+                    width: 0, 
+                    height: 0,
+                    opacity: 0.8,
+                  }}
+                  animate={{ 
+                    width: 300, 
+                    height: 300,
+                    x: ripple.x - 150,
+                    y: ripple.y - 150,
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  style={{ pointerEvents: 'none' }}
+                />
+              )}
             </>
           )}
         </Button>

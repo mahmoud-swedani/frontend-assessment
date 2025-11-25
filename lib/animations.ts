@@ -327,14 +327,18 @@ export const hoverGlow = {
   transition: prefersReducedMotion ? { duration: 0 } : SPRING.smooth,
 };
 
-// Gentle Float Animation
+// Gentle Float Animation - Enhanced with smooth multi-axis movement
 export const floating: Variants = {
   animate: {
     y: prefersReducedMotion ? 0 : [0, -8, 0],
+    x: prefersReducedMotion ? 0 : [0, 3, 0],
+    rotate: prefersReducedMotion ? 0 : [0, 3, -3, 0],
+    scale: prefersReducedMotion ? 1 : [1, 1.03, 1],
     transition: {
       duration: 3.5,
       repeat: Infinity,
-      ease: getEasing('gentle'),
+      ease: [0.42, 0, 0.58, 1], // Ultra-smooth ease-in-out
+      repeatType: 'reverse' as const,
     },
   },
 };
@@ -622,7 +626,7 @@ export const breathing: Variants = {
   },
 };
 
-// Enhanced button micro-interactions
+// Enhanced button micro-interactions with smooth click animation
 export const buttonMicro = {
   whileHover: {
     scale: prefersReducedMotion ? 1 : 1.02,
@@ -630,8 +634,14 @@ export const buttonMicro = {
     transition: getMotionScaleTransition('micro', true),
   },
   whileTap: {
-    scale: 0.98,
-    transition: getMotionScaleTransition('micro'),
+    scale: prefersReducedMotion ? 0.98 : 0.95,
+    y: prefersReducedMotion ? 0 : 1,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 400,
+      damping: 17,
+      mass: 0.5,
+    },
   },
   whileFocus: {
     scale: 1.01,
@@ -774,15 +784,22 @@ export const loadingSpinner: Variants = {
   },
 };
 
-// Button loading state animation
+// Button loading state animation - Enhanced with smooth click feedback
 export const buttonLoading = {
   whileHover: prefersReducedMotion ? {} : {
     scale: 1.02,
+    y: -2,
     transition: SPRING.gentle,
   },
   whileTap: {
-    scale: 0.98,
-    transition: SPRING.bouncy,
+    scale: prefersReducedMotion ? 0.98 : 0.94,
+    y: prefersReducedMotion ? 0 : 2,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 500,
+      damping: 20,
+      mass: 0.4,
+    },
   },
 };
 

@@ -44,8 +44,8 @@ export function LanguageSelector() {
   if (!mounted) {
     return (
       <div className="flex items-center gap-2">
-        <Globe className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-        <div className="w-[120px] h-10 rounded-xl border-2 border-input/50 bg-background px-4 py-2 text-sm flex items-center justify-center shadow-soft">
+        <Globe className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" aria-hidden="true" />
+        <div className="w-[100px] sm:w-[120px] h-8 sm:h-9 rounded-lg sm:rounded-xl border-2 border-input/50 bg-background px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm flex items-center justify-center shadow-soft">
           <span className="text-muted-foreground">{currentLanguage.label}</span>
         </div>
       </div>
@@ -53,9 +53,9 @@ export function LanguageSelector() {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Globe className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-      <div className="relative inline-flex rounded-xl border-2 border-primary/10 bg-background shadow-soft" role="group">
+    <div className="flex items-center gap-1.5 sm:gap-2">
+      <Globe className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" aria-hidden="true" />
+      <div className="relative inline-flex rounded-lg sm:rounded-xl border-2 border-primary/10 bg-background shadow-soft" role="group">
         {languages.map((lang, index) => (
           <Button
             key={lang.value}
@@ -64,7 +64,7 @@ export function LanguageSelector() {
             onClick={() => handleLanguageChange(lang.value)}
             disabled={isPending || locale === lang.value}
             className={cn(
-              'h-10 px-4 text-sm transition-all duration-300',
+              'h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm transition-all duration-300',
               index === 0 && 'rounded-r-none',
               index === languages.length - 1 && 'rounded-l-none border-l-0',
               locale === lang.value && 'bg-gradient-rose-lavender/10 text-primary font-semibold shadow-soft',
@@ -72,8 +72,8 @@ export function LanguageSelector() {
             )}
             aria-label={`Switch to ${lang.label}`}
           >
-            <span className="flex items-center gap-1.5">
-              <span>{lang.flag}</span>
+            <span className="flex items-center gap-1 sm:gap-1.5">
+              <span className="text-base sm:text-lg">{lang.flag}</span>
               <span className="hidden sm:inline">{lang.label}</span>
             </span>
           </Button>

@@ -106,6 +106,7 @@ export function TeamMemberCard({ member, index = 0, isNewItem = false }: TeamMem
                 height={80}
                 className="rounded-full"
                 unoptimized={member.avatar.includes('dicebear.com')}
+                loading={index < 6 ? 'eager' : 'lazy'}
                 placeholder="blur"
                 blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}

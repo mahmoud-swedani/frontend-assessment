@@ -35,7 +35,7 @@ import { SparkleEffect } from '@/components/ui/sparkle-effect';
 import { cn } from '@/lib/utils';
 
 // Memoized cell components (compact version)
-const AvatarCell = memo(({ avatar, name }: { avatar: string | null; name: string }) => (
+const AvatarCell = memo(({ avatar, name, rowIndex = 0 }: { avatar: string | null; name: string; rowIndex?: number }) => (
   <div className="flex items-center">
     {avatar ? (
       <Image
@@ -45,6 +45,7 @@ const AvatarCell = memo(({ avatar, name }: { avatar: string | null; name: string
         height={32}
         className="rounded-full"
         unoptimized={avatar.includes('dicebear.com')}
+        loading={rowIndex < 10 ? 'eager' : 'lazy'}
       />
     ) : (
       <div className="w-8 h-8 rounded-full bg-gradient-rose-lavender/10 flex items-center justify-center text-xs font-semibold text-primary shadow-soft">
@@ -152,7 +153,7 @@ export function TeamTable({ scrollContainerRef }: TeamTableProps) {
       {
         accessorKey: 'avatar',
         header: '',
-        cell: ({ row }) => <AvatarCell avatar={row.original.avatar} name={row.original.name} />,
+        cell: ({ row }) => <AvatarCell avatar={row.original.avatar} name={row.original.name} rowIndex={row.index} />,
         enableSorting: false,
       },
       {

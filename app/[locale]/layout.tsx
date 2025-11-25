@@ -33,7 +33,9 @@ export default async function LocaleLayout({
       <ApolloProvider>
         <SmoothScrollProvider>
           <Navbar />
-          <main className="h-[calc(100vh-var(--navbar-height))] overflow-hidden flex flex-col">{children}</main>
+          <main className="flex flex-col h-[calc(100vh-var(--navbar-height))] overflow-y-auto">
+            {children}
+          </main>
         </SmoothScrollProvider>
       </ApolloProvider>
     </NextIntlClientProvider>

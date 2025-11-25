@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -17,6 +18,7 @@ import { RoleSelect } from './RoleSelect';
 import { useTeamDirectoryStore } from '@/stores/teamDirectoryStore';
 import { drawerSlide, modalBackdrop, staggerContainer, staggerItem, SPRING } from '@/lib/animations';
 import { useFocusManagement } from '@/hooks/useAccessibility';
+import { cn } from '@/lib/utils';
 import type { TeamMemberRole } from '@/types/teamDirectory';
 
 const MAX_SEARCH_LENGTH = 100;
@@ -57,6 +59,8 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
   const t = useTranslations('teamDirectory');
   const drawerRef = useRef<HTMLDivElement>(null);
   const { trapFocus } = useFocusManagement();
+  const previousBodyOverflow = useRef<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   
   const searchTerm = useTeamDirectoryStore((state) => state.searchTerm);
   const selectedRole = useTeamDirectoryStore((state) => state.selectedRole);
@@ -74,6 +78,11 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
     }
     return 'none';
   });
+
+  // Mount check for portal (SSR-safe)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Initialize drawer state when it opens
   useEffect(() => {
@@ -110,6 +119,18 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  // Prevent body scroll when drawer is open (mobile UX)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    previousBodyOverflow.current = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow.current || '';
+    };
+  }, [isOpen]);
+
   const handleApplyDrawerFilters = useCallback(() => {
     setSearchTerm(localDrawerSearchTerm);
     setSelectedRole(localDrawerRole === 'all' ? null : (localDrawerRole as TeamMemberRole));
@@ -128,7 +149,7 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
     setLocalDrawerSort('none');
   }, []);
 
-  return (
+  const drawerContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -148,42 +169,45 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
             animate="visible"
             exit="hidden"
             variants={drawerSlide}
-            className="fixed end-0 top-0 h-full w-full max-w-md bg-card border-s-2 border-primary/10 shadow-large z-[70] p-6 overflow-y-auto"
+            className="fixed inset-0 h-full w-full bg-card shadow-large z-[70] md:inset-y-0 md:end-0 md:start-auto md:max-w-md md:border-s-2 md:border-primary/10 overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label={t('filters.advancedFilters')}
             onClick={(e) => e.stopPropagation()}
             style={{ transformStyle: 'preserve-3d' }}
           >
-            <motion.div 
-              className="flex items-center justify-between mb-6"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <h2 className="text-xl font-semibold">{t('filters.advancedFilters')}</h2>
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                transition={SPRING.bouncy}
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <motion.div 
+                className="flex items-center justify-between p-6 border-b border-primary/10"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
               >
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onClose}
-                  aria-label={t('filters.closeAdvanced')}
+                <h2 className="text-xl font-semibold">{t('filters.advancedFilters')}</h2>
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={SPRING.bouncy}
                 >
-                  <X className="h-4 w-4" />
-                </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onClose}
+                    aria-label={t('filters.closeAdvanced')}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </motion.div>
               </motion.div>
-            </motion.div>
-            
-            <motion.div 
-              className="space-y-4"
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-            >
+              
+              {/* Content */}
+              <motion.div 
+                className="flex-1 p-6 space-y-4 overflow-y-auto"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+              >
               <motion.div
                 variants={staggerItem}
                 className="focus-within:scale-[1.01] transition-transform duration-300"
@@ -278,43 +302,52 @@ export function AdvancedFiltersDrawer({ isOpen, onClose }: AdvancedFiltersDrawer
                 </div>
               )}
 
+              </motion.div>
+
+              {/* Footer with Actions */}
               <motion.div 
-                className="flex gap-2 pt-4 border-t"
+                className="p-6 border-t border-primary/10"
                 variants={staggerItem}
               >
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={SPRING.gentle}
-                  className="flex-1"
-                >
-                  <Button
-                    variant="outline"
-                    onClick={handleClearDrawerFilters}
-                    className="w-full"
+                <div className="flex gap-2">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={SPRING.gentle}
+                    className="flex-1"
                   >
-                    {t('filters.clearFilters')}
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={SPRING.gentle}
-                  className="flex-1"
-                >
-                  <Button
-                    onClick={handleApplyDrawerFilters}
-                    className="w-full"
+                    <Button
+                      variant="outline"
+                      onClick={handleClearDrawerFilters}
+                      className="w-full"
+                    >
+                      {t('filters.clearFilters')}
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={SPRING.gentle}
+                    className="flex-1"
                   >
-                    {t('filters.apply')}
-                  </Button>
-                </motion.div>
+                    <Button
+                      onClick={handleApplyDrawerFilters}
+                      className="w-full"
+                    >
+                      {t('filters.apply')}
+                    </Button>
+                  </motion.div>
+                </div>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         </>
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(drawerContent, document.body);
 }
 
